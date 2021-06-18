@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.controller.lecture.domain.User;
 
 import lombok.extern.log4j.Log4j;
@@ -92,5 +93,24 @@ public class Ex08Controller {
 		model.addAttribute("hello world"); //attribute 명이 생략되어있으면 type명이 대신함 (string)
 		
 		return "ex08/sub02";
+	}
+	
+	@RequestMapping("/sub08")
+	public String method08(User user) {
+		//메소드의 파라미터에 model을 생략해도 됨
+		log.info("ex08 sub08 method");
+		
+		return "ex08/sub02";
+	}
+	
+	@RequestMapping("/sub09")
+	public void method09(int age, String name) {
+		//primitive 타입이나 String이면 requestparam으로 간주되어 @RequestParam 어노테이션 생략가능
+		//modelAttribute가 아니기 때문에 jsp로 정보가 넘어가지 않음
+		//public void method09(@ModelAttribute("age") int age,@ModelAttribute("name") String name) 으로 써 줘야함
+		log.info("ex08 sub09 method");
+		
+		log.info(age);
+		log.info(name);
 	}
 }
