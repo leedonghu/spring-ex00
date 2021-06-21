@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.BoardMapper">
+<!-- ID 는 메소드 명 RESULT TYPE은 클래스 명 -->
+  <select id="getList" resultType="org.zerock.domain.BoardVO">
+	<!-- 칼럼명의 별칭을 빈의 프로퍼티명에 맞춤 -->
+	
+	<!-- TEXT로만 해석할때, >와 같은 기호들이 TAG로 인식되지 않게 하려고 -->
+	<![CDATA[
+	SELECT
+        bno bno,
+        title title,
+        content content,
+        writer writer,
+        regdate regdate,
+        updatedate updateDate
+    
+    FROM tbl_board
+	]]>
+  </select>
+  
+  <insert id="insert">
+    INSERT INTO tbl_board (title, content, writer)
+    VALUES (#{title}, #{content}, #{writer})
+  
+  </insert>
+  
+  <!-- keyColumn 의 값이 keyProperty의 값으로 들어감 -->
+  <insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno">
+     INSERT INTO tbl_board (title, content, writer)
+     VALUES (#{title}, #{content}, #{writer})
+  </insert>
+  
+  <select id="read" resultType="org.zerock.domain.BoardVO">
+  SELECT
+   bno bno,
+   title title,
+   content content,
+   writer writer,
+   regdate regdate,
+   updatedate updateDate
+  FROM tbl_board
+  WHERE bno = #{bno}
+  </select>
+  
+</mapper>
