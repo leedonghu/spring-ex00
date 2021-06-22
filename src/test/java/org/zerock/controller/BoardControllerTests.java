@@ -1,7 +1,11 @@
 package org.zerock.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -40,11 +46,28 @@ public class BoardControllerTests {
 	
 	@Test
 	public void testList() throws Exception {
-		String viewName = mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView().getViewName();
+		ModelAndView mav = mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView();
 		
 		
-		assertEquals("board/list", viewName);
+		assertEquals("board/list", mav.getViewName());
+		
+		Map<String, Object> map = mav.getModel();
+		
+		Object o = map.get("list");
+		assertNotNull(o);
+		assertTrue(o instanceof List<?>);
 		//fail("fail");
+	}
+	
+	@Test
+	public void testRegister() throws Exception {
+		FlashMap fm = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+				.param("title", "테스트 새글 제목")
+				.param("content", "테스트 새글 내용")
+				.param("writer", "user00")).andReturn().getFlashMap();
+		
+		assertNotNull(fm.get("result"));
+		
 	}
 
 }
