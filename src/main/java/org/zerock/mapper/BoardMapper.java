@@ -28,4 +28,8 @@ public interface BoardMapper {
 	
 	//하나의 record만 얻어오는 method
 	public BoardVO read(long bno);
+	
+	public int delete(long bno);
+	
+	public int update(BoardVO board);
 }

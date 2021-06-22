@@ -46,4 +46,23 @@
   WHERE bno = #{bno}
   </select>
   
+  
+   <delete id="delete">
+  	DELETE FROM tbl_board WHERE bno = #{bno}
+  </delete>
+  
+  <update id="update">
+  	UPDATE tbl_board
+  	
+  	SET
+  	    title = #{title}, 
+  	    content = #{content},
+  	    writer = #{writer},
+  	    updateDate = NOW()
+  	    
+  	WHERE
+  	    bno = #{bno}
+  
+  </update>
+  
 </mapper>
