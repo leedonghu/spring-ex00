@@ -19,6 +19,7 @@
         updatedate updateDate
     
     FROM tbl_board
+    WHERE bno > 0 ORDER BY bno DESC
 	]]>
   </select>
   

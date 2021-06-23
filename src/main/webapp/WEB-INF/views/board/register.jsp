@@ -1,0 +1,46 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board" %>
+
+<% request.setCharacterEncoding("utf-8"); %>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+
+<title>Insert title here</title>
+</head>
+<body>
+<bd:navbar></bd:navbar>
+
+<div class="container">
+	<h1>글 쓰기</h1>
+	
+	<div class="row">
+	    <div class="col-12">
+	      <form action="${appRoot }/board/register" method="post">
+	         <div class="form-group">
+	         	<label for="input1">제목</label>         
+	            <input class="form-control" id="input1" name="title">
+	         </div>
+	         <div class="form-group">
+	         	<label for="textarea1">내용</label>         
+	            <textarea id="textarea1" class="form-control" name="content"></textarea>
+	         </div>
+	         
+	         <div class="form-group">
+	            <label for="input2">작성자</label>
+	         	<input name="writer" class="form-control" id="input2">
+	         </div>
+	         <input type="submit" value="작성" class="btn btn-primary" />
+	      
+	      </form>
+	    
+	    </div>
+	</div>
+</div>
+</body>
+</html>
