@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -31,14 +34,18 @@ public class BoardController {
 	*/
 
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
+		//파라미터로 들어가있는 Criteria는 @ModelAttribute. 즉, model에 criteria라는 이름으로 들어가있음 
+		//타입명이 attribute 명이 됨
 		log.info("board/list method.....");
+		int total = service.getTotal(cri); //TODO : 나중에 구하는 코드 작성해야 함
 		
 		// service getList() 실행 결과를
-		List<BoardVO> list = service.getList();
+		List<BoardVO> list = service.getList(cri);
 		
 		// model에 attribute로 넣고
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		// view로 포워드
 	}
 	
@@ -60,7 +67,7 @@ public class BoardController {
 	
 	//하나만 조회하는 메소드
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("bno") Long bno,@ModelAttribute("cri") Criteria cri, Model model) {
 		
 		log.info("board/get method");
 		
@@ -74,7 +81,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		//request parameter 수집
 		
 		//service 일 시킴
@@ -88,12 +95,16 @@ public class BoardController {
 			rttr.addFlashAttribute("messageBody", "수정되었습니다.");
 			
 		}
+		
+		//쿼리스트링으로 넘길때는 addAttribute
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		//forward or redirect
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno, RedirectAttributes rttr) {
+	public String remove(Long bno, Criteria cri, RedirectAttributes rttr) {
 		//parameter 수집
 		
 		//service 일
@@ -104,12 +115,16 @@ public class BoardController {
 			rttr.addFlashAttribute("messageTitle", "삭제성공");
 			rttr.addFlashAttribute("messageBody", "삭제되었습니다.");
 		}
+		
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
 		//forward or redirect
 		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/register")
-	public void register() {
+	public void register(@ModelAttribute("cri") Criteria cri) {
 		// WEB-INF/views/board/register.jsp로 forward
 	}
 	

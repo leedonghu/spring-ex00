@@ -37,7 +37,13 @@
 	         	<input name="writer" class="form-control" id="input2" value="${board.writer }" readonly="readonly">
 	         </div>
 	        
-	         <a class="btn btn-secondary" href="${appRoot }/board/modify?bno=${board.bno}">수정/삭제</a>
+	        <c:url value="/board/modify" var="modifyUrl">
+	           <c:param name="bno" value="${board.bno }"></c:param>
+	           <c:param name="pageNum" value="${cri.pageNum }"></c:param>
+	           <c:param name="amount" value="${cri.amount }"></c:param>
+	        </c:url>
+	        
+	         <a class="btn btn-secondary" href="${modifyUrl }">수정/삭제</a>
 	      </form>
 	    
 	    </div>

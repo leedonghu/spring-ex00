@@ -13,6 +13,26 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <title>Insert title here</title>
+
+<script>
+$(document).ready(function(){
+	$("#list-pagenation1 a").click(function(e){
+		//기본 액션 중지
+		e.preventDefault();
+		
+		console.log("a요소 클릭됨");
+		
+		var actionForm = $("#actionForm");
+		
+		//form의 pageNum input의 값을 a 요소의 href값으로 변경
+		actionForm.find("[name=pageNum]").val($(this).attr("href"));
+		
+		//submit
+		actionForm.submit();
+	});
+});
+</script>
+
 </head>
 <body>
 <div class="container">
@@ -37,7 +57,13 @@
 	     <tr>
 	        <td>${board.bno }</td>
 	        <td>
-	        <a href="${appRoot }/board/get?bno=${board.bno}">
+	        <c:url value="/board/get" var="getUrl">
+	           <c:param name="bno" value="${board.bno }"></c:param>
+	           <c:param name="pageNum" value="${pageMaker.cri.pageNum }"></c:param>
+	           <c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+	        </c:url>
+	        
+	        <a href="${getUrl }">
 	        ${board.title }
 	        </a>
 	        </td>
@@ -55,6 +81,39 @@
 	 
 	 </tbody>
 	</table>
+</div>
+
+<div>
+<nav aria-label="Page navigation example">
+  <ul id="list-pagenation1" class="pagination justify-content-center">
+    
+    <c:if test="${pageMaker.prev }">
+      <li class="page-item">
+        <a class="page-link" href="${pageMaker.startPage -1 }" tabindex="-1">Previous</a>
+      </li>
+    </c:if>
+    
+    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+    <%-- href="${appRoot }/board/list?pageNum=${pageMaker.cri.pageNum}&amount=${pageMaker.cri.amount}" --%>
+       <li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+    </c:forEach>
+    
+    <c:if test="${pageMaker.next }">
+       <li class="page-item">
+         <a class="page-link" href="${pageMaker.endPage + 1 }">Next</a>
+       </li>
+    </c:if>
+    
+  </ul>
+</nav>
+
+<div style="display: none;">
+   <form id="actionForm" action="${appRoot }/board/list" method="get">
+      <input name="pageNum" value="${pageMaker.cri.pageNum }"/>
+      <input name="amount" value="${pageMaker.cri.amount }"/>
+   </form>
+</div>
+
 </div>
 
 

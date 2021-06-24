@@ -23,6 +23,24 @@
 	]]>
   </select>
   
+    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+	
+	<![CDATA[
+	SELECT
+        bno bno,
+        title title,
+        content content,
+        writer writer,
+        regdate regdate,
+        updatedate updateDate
+    
+    FROM tbl_board
+    ORDER BY bno DESC
+    
+    LIMIT #{from}, #{amount}
+	]]>
+  </select>
+  
   <insert id="insert">
     INSERT INTO tbl_board (title, content, writer)
     VALUES (#{title}, #{content}, #{writer})
@@ -47,6 +65,9 @@
   WHERE bno = #{bno}
   </select>
   
+  <select id="getTotalCount" resultType="int">
+  SELECT COUNT(*) FROM tbl_board
+  </select>
   
    <delete id="delete">
   	DELETE FROM tbl_board WHERE bno = #{bno}
@@ -65,5 +86,7 @@
   	    bno = #{bno}
   
   </update>
+  
+  
   
 </mapper>
