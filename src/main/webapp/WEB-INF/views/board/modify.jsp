@@ -52,6 +52,8 @@ $(document).ready(function(){
 	         
 	         <input hidden name="pageNum" value="${cri.pageNum }"/>
 	         <input hidden name="amount" value="${cri.amount }"/>
+	         <input hidden name="type" value="${cri.type }"/>
+	         <input hidden name="keyword" value="${cri.keyword }"/>
 	         <input type="submit" value="수정" class="btn btn-warning" />
 	         <input id="board-remove-btn1" type="button" value="삭제" class="btn btn-danger"/>
 	      

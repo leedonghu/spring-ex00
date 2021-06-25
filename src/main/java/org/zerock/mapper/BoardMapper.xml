@@ -4,6 +4,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
+
+<sql id="criteria">
+    <where>
+    
+    <foreach collection="typeArr" item="type" separator="OR">
+       <choose>
+          <when test='type == "T"'>
+             title LIKE CONCAT('%', #{keyword}, '%')
+          </when>
+          <when test='type == "W"'>
+             writer LIKE CONCAT('%', #{keyword}, '%') 
+          </when>
+          <when test='type == "C"'>
+             content LIKE CONCAT('%', #{keyword}, '%')
+          </when>
+       </choose>
+    </foreach>
+    
+    </where>
+</sql>
+
+
 <!-- ID 는 메소드 명 RESULT TYPE은 클래스 명 -->
   <select id="getList" resultType="org.zerock.domain.BoardVO">
 	<!-- 칼럼명의 별칭을 빈의 프로퍼티명에 맞춤 -->
@@ -25,7 +47,7 @@
   
     <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 	
-	<![CDATA[
+	
 	SELECT
         bno bno,
         title title,
@@ -35,11 +57,15 @@
         updatedate updateDate
     
     FROM tbl_board
+
+    <include refid="criteria"></include>
+    
+   
     ORDER BY bno DESC
     
     LIMIT #{from}, #{amount}
-	]]>
-  </select>
+	</select>
+ 
   
   <insert id="insert">
     INSERT INTO tbl_board (title, content, writer)
@@ -67,6 +93,7 @@
   
   <select id="getTotalCount" resultType="int">
   SELECT COUNT(*) FROM tbl_board
+  <include refid="criteria"></include>
   </select>
   
    <delete id="delete">
