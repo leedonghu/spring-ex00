@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="org.zerock.controller" />
 	
+	<context:component-scan base-package="practice"></context:component-scan>
+	
 	
 	
 </beans:beans>
