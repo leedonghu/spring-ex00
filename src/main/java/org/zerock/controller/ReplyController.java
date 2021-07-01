@@ -43,7 +43,7 @@ public class ReplyController {
 		}
 	}
 	
-	@GetMapping("/page/{bno}")
+	@GetMapping("/pages/{bno}")
 	public List<ReplyVO> getList(@PathVariable("bno") Long bno){
 		
 		return service.getList(bno);

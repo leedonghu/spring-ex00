@@ -65,9 +65,13 @@ $(document).ready(function(){
 	           <c:param name="keyword" value="${cri.keyword }"/>
 	        </c:url>
 	        
-	        <a href="${getUrl }">
-	        ${board.title }
-	        </a>
+	        <a href="${getUrl}">
+				${board.title } 
+				<c:if test="${board.replyCnt > 0 }">
+						[${board.replyCnt }]
+				</c:if>
+						
+			</a>
 	        </td>
 	        <td>${board.writer }</td>
 	        <td>
