@@ -62,7 +62,7 @@
 							<!-- 버튼을 누르면 회원가입 페이지로 이동 -->
 								<button type="submit" class="btn btn-primary">확인</button>
 								<button type="button" class="btn btn-secondary"
-									onclick="location.href='<%=request.getContextPath()%>/practice02/account'">회원가입</button>
+									onclick="location.href='${appRoot}/start/acc'">회원가입</button>
 							</div>
 							<div class="col"></div>
 						</div>

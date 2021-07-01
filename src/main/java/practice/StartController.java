@@ -12,4 +12,9 @@ public class StartController {
 		
 		return "/practice/startPage";
 	}
+	
+	@RequestMapping("/acc")
+	public String accPage() {
+		return "/practice/acc";
+	}
 }
