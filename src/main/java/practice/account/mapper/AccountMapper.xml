@@ -10,4 +10,14 @@
  VALUES (#{name}, #{id}, #{password}, #{mobileNum}, #{email}, #{address}, #{birth})
 </insert>
 
+<select id="get">
+SELECT * FROM Account
+WHERE id = #{id}
+</select>
+
+<select id="checkId" resultType="boolean">
+SELECT * FROM Account
+WHERE id = #{id}
+</select>
+
 </mapper>

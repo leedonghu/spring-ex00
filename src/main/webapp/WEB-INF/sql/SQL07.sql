@@ -1,7 +1,7 @@
 use spr1;
 
 DESC tbl_board;
-SELECT * FROM tbl_board_file;
+SELECT * FROM Account;
 
 
 CREATE TABLE tbl_board_file

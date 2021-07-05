@@ -27,6 +27,25 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 	
+	@Override
+	public boolean checkId(String id) {
+		
+		boolean check = mapper.checkId(id);
+		String idForm = "^[a-zA-Z0-9]{5,10}$";
+		
+		if(check) {
+			if(id.matches(idForm)) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			
+			return false;
+		}
+		
+		
+	}
 	
 
 }

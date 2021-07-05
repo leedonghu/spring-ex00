@@ -17,7 +17,7 @@
 <div class="container">
 	<script>
 // 아이디 패턴과 중복을 확인하는 버튼
-var url = "${pageContext.request.contextPath}"+"/practice02/checkId";
+var url = "${pageContext.request.contextPath}"+"/acc/checkId";
 
 $(document).ready(function() {
 	$("#button1").click(function() {

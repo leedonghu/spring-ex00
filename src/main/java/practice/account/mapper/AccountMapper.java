@@ -7,4 +7,6 @@ public interface AccountMapper {
 	public int register(AccountVO vo);
 	
 	public AccountVO get(String id);
+	
+	public boolean checkId(String id);
 }

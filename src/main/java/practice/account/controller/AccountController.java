@@ -3,6 +3,7 @@ package practice.account.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Setter;
 import practice.account.domain.AccountVO;
@@ -27,6 +28,19 @@ public class AccountController {
 		
 		
 		return "";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/checkId")
+	public String checkId(String id) {
+		
+		boolean check = service.checkId(id);
+		
+		if(check) {
+			return "ok";
+		} else {
+			return "not ok";
+		}
 	}
 	
 }
