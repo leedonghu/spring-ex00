@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	
+	<!-- 해당 URL에 누가 접근이 가능한지 -->
+	<security:http>
+		<security:intercept-url pattern="/secure/all" access="permitAll"/>
+		<security:intercept-url pattern="/secure/member" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/secure/admin" access="hasRole('ROLE_ADMIN')"/>
+		<security:form-login login-page="/member/login"/>
+		<security:logout/>
+		<!-- 실제는 있으면 좋지만 연습에서는 삭제, 모든 form에 존재해야 하는 input -->
+		<security:csrf disabled="true"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<!--  
+	 어떻게 인증을 처리할 것인지 
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				 ID가 member이고 password가 member인 사람은 ROLE_MEMBER의 권한을 가지고 
+				로그인시 /secure/member에 접근 가능함 
+				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	-->
+</beans>

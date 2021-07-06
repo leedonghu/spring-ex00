@@ -3,10 +3,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:url value="/board/list" var="listUrl">
-   
-  
+
+	<c:if test="${not empty cri.pageNum }">
       <c:param name="pageNum" value="${cri.pageNum }"></c:param>
+	</c:if>   
+  	<c:if test="${not empty cri.amount }">
       <c:param name="amount" value="${cri.amount }"></c:param>
+  	</c:if>
       <c:param name="keyword" value="${cri.keyword }"></c:param>
       <c:param name="type" value="${cri.type }"></c:param>
    
@@ -14,9 +17,12 @@
 
 <c:url value="/board/register" var="registerUrl">
    
-   
+   <c:if test="${not empty cri.pageNum }">
       <c:param name="pageNum" value="${cri.pageNum }"></c:param>
+   </c:if>
+   <c:if test="${not empty cri.amount }">
       <c:param name="amount" value="${cri.amount }"></c:param>
+   </c:if>
       <c:param name="keyword" value="${cri.keyword }"></c:param>
       <c:param name="type" value="${cri.type }"></c:param>
  
@@ -36,10 +42,23 @@
       <li class="nav-item">
         <a class="nav-link" href="${registerUrl }"><i class="fas fa-pen"></i>글쓰기</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${appRoot }/secure/all"><i class="fas fa-pen"></i>모두</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${appRoot }/secure/member"><i class="fas fa-pen"></i>멤버만</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${appRoot }/secure/admin"><i class="fas fa-pen"></i>어드민만</a>
+      </li>
       
     </ul>
     
   </div>
+  
+  <form action="${appRoot }/logout" method="post">
+  	<input type="submit" class="btn btn-outline-secondary" value="logout">
+  </form>
   
   <form action="${listUrl }" method="get" class="form-inline">
     <select name="type" class="form-control mr-sm-2">

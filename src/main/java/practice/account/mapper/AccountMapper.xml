@@ -16,7 +16,7 @@ WHERE id = #{id}
 </select>
 
 <select id="checkId" resultType="boolean">
-SELECT * FROM Account
+SELECT count(*) FROM Account
 WHERE id = #{id}
 </select>
 
