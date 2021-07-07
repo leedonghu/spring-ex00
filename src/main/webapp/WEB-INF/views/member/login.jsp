@@ -28,7 +28,10 @@
 						<label for="input2">패스워드</label>
 						<input class="form-control" name="password" id="input2" type="password">
 					</div>
-					
+					<div class="form-group form-check">
+						<input name="remember-me" type="checkbox" class="form-check-input" id="checkbox1">
+						<label class="form-check-label" for="checkbox1">remember me</label>
+					</div>
 					<input class="btn btn-primary" type="submit" value="login">
 				</form>
 			</div>

@@ -73,7 +73,7 @@ $(document).ready(function(){
 						
 			</a>
 	        </td>
-	        <td>${board.writer }</td>
+	        <td>${board.writerName }</td>
 	        <td>
 	        <fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/>
 	        </td>

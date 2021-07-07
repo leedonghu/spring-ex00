@@ -10,6 +10,19 @@ $(function(){
 				$("#reply-rno-input2").val(reply.rno);
 				$("#reply-replyer-input2").val(reply.replyer);
 				$("#reply-reply-textarea2").text(reply.reply);
+				
+				//댓글 작성자와 로그인 유저가 같지않으면
+				//수정삭제버튼 삭제
+				if(userid != reply.replyer){
+					$("#reply-modify-modal").find("#reply-modify-delete-btn-wrapper").hide();
+
+					$("#reply-reply-textarea2").attr("readonly", "readonly");
+				}else{
+					$("#reply-modify-modal").find("#reply-modify-delete-btn-wrapper").show();
+
+					$("#reply-reply-textarea2").removerAttr("readonly");
+				}
+				
 				$("#reply-modify-modal").modal("show");
 			},
 			error: function(){
@@ -143,11 +156,23 @@ $(function(){
 	$("#reply-delete-btn1").click(function(){
 		var check = confirm("삭제 하시겠습니까?");
 		
+		
+
+
 		if(check){
 			var rno = $("#reply-rno-input2").val();
+			var replyer = $("#reply-replyer-input2").val();
+			
+			var data = {
+					rno : rno,
+					replyer: replyer
+			};
+
 			$.ajax({
 				type: "delete",
 				url: appRoot + "/replies/" + rno,
+				data : JSON.stringify(data),
+				contentType : "application/json",
 				success: function(){
 					//모달창 닫고
 					$("#reply-modify-modal").modal("hide");

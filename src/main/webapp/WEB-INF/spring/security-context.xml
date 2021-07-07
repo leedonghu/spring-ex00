@@ -15,10 +15,12 @@
 		<security:intercept-url pattern="/secure/all" access="permitAll"/>
 		<security:intercept-url pattern="/secure/member" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/secure/admin" access="hasRole('ROLE_ADMIN')"/>
-		<security:form-login login-page="/member/login"/>
+		<security:form-login login-page="/member/login" default-target-url="/board/list"/>
 		<security:logout/>
 		<!-- 실제는 있으면 좋지만 연습에서는 삭제, 모든 form에 존재해야 하는 input -->
 		<security:csrf disabled="true"/>
+		<!-- db에서 data를 가져다 쓸 수 있게 root context xml의 datasource를 이용 -->
+		<security:remember-me data-source-ref="dataSource"/>
 	</security:http>
 	
 	<security:authentication-manager>

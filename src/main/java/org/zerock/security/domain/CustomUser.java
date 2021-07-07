@@ -8,8 +8,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.zerock.domain.MemberVO;
 
-public class CustomUser extends User {
+import lombok.Getter;
 
+public class CustomUser extends User {
+	
+	//CustomUserDetailsService에서 건내준 정보를 받아서 씀
+	@Getter
+	private MemberVO member;
+	
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		
@@ -20,6 +26,7 @@ public class CustomUser extends User {
 				.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
 				.collect(Collectors.toList()));
 		
+		member = vo;
 		
 	}
 
