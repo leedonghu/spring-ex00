@@ -81,4 +81,14 @@ public class MemberMapperTests {
 		assertTrue(encoder.matches("admin", vo.getUserpw()));
 	}
 	
+	@Test // 비밀번호 잃어버렸을때 업데이트 한번 시키는 용도
+	public void testUpdate() {
+		MemberVO vo = mapper.read("aaa");
+		
+		String newpw = "111";
+		vo.setUserpw(encoder.encode(newpw));
+		
+		assertEquals(1, mapper.update(vo));
+	}
+	
 }

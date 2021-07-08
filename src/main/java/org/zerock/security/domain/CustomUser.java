@@ -9,11 +9,13 @@ import org.springframework.security.core.userdetails.User;
 import org.zerock.domain.MemberVO;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class CustomUser extends User {
 	
 	//CustomUserDetailsService에서 건내준 정보를 받아서 씀
 	@Getter
+	@Setter
 	private MemberVO member;
 	
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
