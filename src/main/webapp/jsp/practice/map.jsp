@@ -19,7 +19,7 @@
 <div class="container">
 	<div id="map" style="width:50%; height: 50vh;"></div>
 	<button id="button">버튼</button>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0Z3OxJ67S97YCiAPlHOZSCZz_tms-sm0&callback=initMap&region=kr"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=[my-key]&callback=initMap&region=kr"></script>
   <script>
     function initMap() {
       var seoul = { lat: 37.5642135 ,lng: 127.0016985 };
