@@ -64,6 +64,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.update(vo) == 1;
 	}
+	
+	@Override
+	public boolean modify(MemberVO vo, String oldPassword) {
+		MemberVO old = mapper.read(vo.getUserid());
+		
+		if(encoder.matches(oldPassword, old.getUserpw())) {
+			return modify(vo);
+		}
+		return false;
+	}
 
 	@Override
 	@Transactional
@@ -85,5 +95,16 @@ public class MemberServiceImpl implements MemberService{
 		//tbl_member 삭제
 		return mapper.remove(vo) == 1;
 	}
+
+	@Override
+	public boolean remove(MemberVO vo, String oldPassword) {
+		MemberVO old =mapper.read(vo.getUserid());
+		if(encoder.matches(oldPassword,old.getUserpw())) {
+			return remove(vo);
+		}
+		return false;
+	}
+
+
 
 }
